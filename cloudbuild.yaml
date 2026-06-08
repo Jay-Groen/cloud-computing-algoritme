@@ -4,14 +4,14 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'europe-west4-docker.pkg.dev/$PROJECT_ID/trainingsapp/trainingsapp:$COMMIT_SHA'
+      - 'europe-west4-docker.pkg.dev/cloud-computing-resit-90139/trainingsapp/trainingsapp:latest'
       - '.'
 
   # Push to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'europe-west4-docker.pkg.dev/$PROJECT_ID/trainingsapp/trainingsapp:$COMMIT_SHA'
+      - 'europe-west4-docker.pkg.dev/cloud-computing-resit-90139/trainingsapp/trainingsapp:latest'
 
   # Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -21,7 +21,7 @@ steps:
       - 'deploy'
       - 'trainingsapp'
       - '--image'
-      - 'europe-west4-docker.pkg.dev/$PROJECT_ID/trainingsapp/trainingsapp:$COMMIT_SHA'
+      - 'europe-west4-docker.pkg.dev/cloud-computing-resit-90139/trainingsapp/trainingsapp:latest'
       - '--region'
       - 'europe-west4'
       - '--platform'
@@ -43,12 +43,12 @@ steps:
       - '$_CLOUD_SQL_INSTANCE'
 
 substitutions:
-  _CLOUD_SQL_INSTANCE: 'your-project:europe-west4:trainingsapp-db'
+  _CLOUD_SQL_INSTANCE: 'cloud-computing-resit-90139:europe-west4:trainingsapp-db'
   _DB_NAME: 'trainingsapp'
   _DB_USER: 'trainingsapp_user'
 
 images:
-  - 'europe-west4-docker.pkg.dev/$PROJECT_ID/trainingsapp/trainingsapp:$COMMIT_SHA'
+  - 'europe-west4-docker.pkg.dev/cloud-computing-resit-90139/trainingsapp/trainingsapp:latest'
 
 options:
   logging: CLOUD_LOGGING_ONLY
