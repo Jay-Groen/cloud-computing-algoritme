@@ -5,14 +5,12 @@ Falls back to SQLite for local development when Cloud SQL is not configured.
 
 import os
 import json
-import sqlite3
+import sqlalchemy
 from datetime import datetime
 from typing import Optional, Dict, Any, List
 
-# Try to import Cloud SQL connector
 try:
     from google.cloud.sql.connector import Connector
-    import sqlalchemy
     CLOUD_SQL_AVAILABLE = True
 except ImportError:
     CLOUD_SQL_AVAILABLE = False
