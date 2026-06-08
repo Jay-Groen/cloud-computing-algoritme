@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrainSmart — Jouw Persoonlijk Trainingsplan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+
+    <header>
+        <div class="logo">
+            <span class="logo-icon">⚡</span>
+            <span class="logo-text">TRAIN<strong>SMART</strong></span>
+        </div>
+        <nav>
+            <button class="nav-btn active" onclick="showSection('form-section')">Nieuw Plan</button>
+            <button class="nav-btn" onclick="showSection('history-section'); loadHistory()">Geschiedenis</button>
+        </nav>
+    </header>
+
+    <!-- ===== FORM SECTION ===== -->
+    <main id="form-section" class="section active">
+        <div class="hero">
+            <h1>GENEREER JOUW<br><span class="accent">TRAININGSPLAN</span></h1>
+            <p class="hero-sub">Vul je gegevens in en ontvang een op maat gemaakt schema</p>
+        </div>
+
+        <div class="form-card">
+            <div class="form-grid">
+
+                <!-- Persoonlijke gegevens -->
+                <div class="form-group full">
+                    <div class="section-label">Persoonlijke gegevens</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="naam">Naam</label>
+                    <input type="text" id="naam" placeholder="Jan de Vries" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="leeftijd">Leeftijd</label>
+                    <input type="number" id="leeftijd" placeholder="24" min="10" max="100">
+                </div>
+
+                <div class="form-group">
+                    <label for="geslacht">Geslacht</label>
+                    <select id="geslacht">
+                        <option value="man">Man</option>
+                        <option value="vrouw">Vrouw</option>
+                        <option value="anders">Anders</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="lengte">Lengte (cm)</label>
+                    <input type="number" id="lengte" placeholder="180" min="100" max="250">
+                </div>
+
+                <div class="form-group">
+                    <label for="gewicht">Gewicht (kg)</label>
+                    <input type="number" id="gewicht" placeholder="80" min="30" max="300">
+                </div>
+
+                <!-- Training instellingen -->
+                <div class="form-group full">
+                    <div class="section-label">Training instellingen</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="trainingsdoel">Trainingsdoel</label>
+                    <select id="trainingsdoel">
+                        <option value="spieropbouw">💪 Spieropbouw</option>
+                        <option value="kracht">🏋️ Kracht</option>
+                        <option value="afvallen">🔥 Afvallen</option>
+                        <option value="conditie">🏃 Conditie</option>
+                        <option value="gezondheid">❤️ Gezondheid</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="trainingsniveau">Niveau</label>
+                    <select id="trainingsniveau">
+                        <option value="beginner">Beginner</option>
+                        <option value="gemiddeld">Gemiddeld</option>
+                        <option value="gevorderd">Gevorderd</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="trainingsfrequentie">Trainingen per week</label>
+                    <div class="slider-wrapper">
+                        <input type="range" id="trainingsfrequentie" min="1" max="7" value="3"
+                               oninput="document.getElementById('freq-val').textContent = this.value + 'x'">
+                        <span class="slider-val" id="freq-val">3x</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="trainingsduur">Duur per training (min)</label>
+                    <div class="slider-wrapper">
+                        <input type="range" id="trainingsduur" min="15" max="180" value="60" step="5"
+                               oninput="document.getElementById('duur-val').textContent = this.value + ' min'">
+                        <span class="slider-val" id="duur-val">60 min</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="activiteitsniveau">Dagelijks activiteitsniveau</label>
+                    <select id="activiteitsniveau">
+                        <option value="laag">Laag (zittend werk)</option>
+                        <option value="gemiddeld" selected>Gemiddeld</option>
+                        <option value="hoog">Hoog (actief werk)</option>
+                    </select>
+                </div>
+
+                <!-- Blessures -->
+                <div class="form-group full">
+                    <div class="section-label">Blessures & beperkingen</div>
+                </div>
+
+                <div class="form-group full">
+                    <label>Blessures (selecteer alles wat van toepassing is)</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="knie" id="bl-knie">
+                            <span>Knieproblemen</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="schouder" id="bl-schouder">
+                            <span>Schouderklachten</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="rug" id="bl-rug">
+                            <span>Rugproblemen</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Beschikbare dagen -->
+                <div class="form-group full">
+                    <div class="section-label">Beschikbare dagen</div>
+                </div>
+
+                <div class="form-group full">
+                    <label>Selecteer je beschikbare dagen</label>
+                    <div class="dag-picker">
+                        <button type="button" class="dag-btn selected" data-dag="maandag">Ma</button>
+                        <button type="button" class="dag-btn" data-dag="dinsdag">Di</button>
+                        <button type="button" class="dag-btn selected" data-dag="woensdag">Wo</button>
+                        <button type="button" class="dag-btn" data-dag="donderdag">Do</button>
+                        <button type="button" class="dag-btn selected" data-dag="vrijdag">Vr</button>
+                        <button type="button" class="dag-btn" data-dag="zaterdag">Za</button>
+                        <button type="button" class="dag-btn" data-dag="zondag">Zo</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="generate-btn" onclick="genereerPlan()">
+                <span class="btn-text">GENEREER MIJN PLAN</span>
+                <span class="btn-icon">→</span>
+            </button>
+        </div>
+
+        <!-- Result section -->
+        <div id="result-section" class="result-card hidden">
+            <div class="result-header">
+                <div class="result-title-row">
+                    <h2>JOUW TRAININGSPLAN</h2>
+                    <span id="result-naam" class="result-naam"></span>
+                </div>
+                <span id="result-datum" class="result-datum"></span>
+            </div>
+
+            <div class="result-grid">
+                <div class="result-item highlight">
+                    <div class="result-label">Schema Type</div>
+                    <div class="result-value" id="r-schema"></div>
+                </div>
+                <div class="result-item highlight">
+                    <div class="result-label">Trainingsfocus</div>
+                    <div class="result-value" id="r-focus"></div>
+                </div>
+
+                <div class="result-item">
+                    <div class="result-label">Sets</div>
+                    <div class="result-value big" id="r-sets"></div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">Herhalingen</div>
+                    <div class="result-value big" id="r-herhalingen"></div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">Oefeningen</div>
+                    <div class="result-value big" id="r-oefeningen"></div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">Rusttijd</div>
+                    <div class="result-value" id="r-rust"></div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">Intensiteit</div>
+                    <div class="result-value" id="r-intensiteit"></div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">Volume advies</div>
+                    <div class="result-value small" id="r-aanpassing"></div>
+                </div>
+
+                <div class="result-item full">
+                    <div class="result-label">📅 Trainingsdagen</div>
+                    <div class="result-value" id="r-dagen"></div>
+                </div>
+
+                <div class="result-item full warn" id="r-blessure-block" style="display:none">
+                    <div class="result-label">⚠️ Vermijd bij blessures</div>
+                    <div class="result-value" id="r-vermijd"></div>
+                </div>
+            </div>
+
+            <div class="result-actions">
+                <button class="action-btn" onclick="window.print()">🖨️ Afdrukken</button>
+                <button class="action-btn primary" onclick="resetForm()">Nieuw plan maken</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ===== HISTORY SECTION ===== -->
+    <main id="history-section" class="section">
+        <div class="hero">
+            <h1>OPGESLAGEN<br><span class="accent">TRAININGSPLANNEN</span></h1>
+        </div>
+        <div id="history-list" class="history-list">
+            <div class="loading">Plannen laden...</div>
+        </div>
+    </main>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
