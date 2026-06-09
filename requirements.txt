@@ -5,5 +5,5 @@ python-multipart==0.0.12
 sqlalchemy==2.0.36
 pydantic==2.9.2
 # Cloud SQL (uncomment for GCP deployment)
-# cloud-sql-python-connector[pg8000]==1.12.1
-# pg8000==1.31.2
+cloud-sql-python-connector[pg8000]==1.12.1
+pg8000==1.31.2
