@@ -22,13 +22,17 @@ def send_request(_):
     response = requests.post(url, json=payload)
     return response.status_code
 
-with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
-    results = list(executor.map(send_request, range(50)))
+for users in [10, 50, 100]:
 
-status_counts = {}
-for status in results:
-    status_counts[status] = status_counts.get(status, 0) + 1
+    with concurrent.futures.ThreadPoolExecutor(max_workers=users) as executor:
+        results = list(executor.map(send_request, range(users)))
 
-print(f"{len(results)} requests verzonden")
-for status, count in status_counts.items():
-    print(f"  HTTP {status}: {count}x")
+    status_counts = {}
+
+    for status in results:
+        status_counts[status] = status_counts.get(status, 0) + 1
+
+    print(f"\n=== {users} gebruikers ===")
+
+    for status, count in status_counts.items():
+        print(f"HTTP {status}: {count}x")
